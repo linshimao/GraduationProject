@@ -1,0 +1,52 @@
+/* i标签 */
+i.fa:hover {
+  cursor: pointer;
+  color: #ef8222;
+}
+/* 导航字体颜色 */
+.nav-font-color a{
+  color: #9d9d9d;;
+}
+
+/* 导航字体大小*/
+.nav-font-size {
+  font-size: 16px;
+}
+
+/* 导航i标签大小、颜色 */
+.nav-i {
+  font-size: 20px;
+  color: #9d9d9d;
+}
+/* -- 预定义样式结束 -- */
+
+/* 头部 */
+header {
+  background-color: #797373;
+}
+.logo {
+  width: 120px;
+  height: 93px;
+  background: url("../img/logo.png");
+}
+ul.nav, .member-center {
+  margin-top: 35px;
+}
+
+/* 头部结束 */
+
+/* 底部 */
+footer {
+  padding-top: 40px;
+  height: 120px;
+  background-color: #797373;
+}
+
+.footer-link li {
+  line-height: 25px;
+}
+
+/* section h2 */
+section h2 {
+  text-align: center;
+}

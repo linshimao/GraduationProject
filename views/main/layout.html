@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin_index.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="row">
+      <h1 class="col-md-2">
+        <a href="/api/content">
+          <div class="logo">
+          </div>
+        </a>
+      </h1>
+      <nav class="col-md-9 navbar">
+        <ul class="nav nav-tabs nav-font-color">
+          <li><a href="/api/content">首页</a></li>
+          <li><a href="">事务交流</a></li>
+          <li><a href="/api/about">关于</a></li>
+        </ul>
+      </nav>
+      <div class="col-md-1 member-center"> <!-- 个人中心 -->
+        <div class="btn-group">
+          <i class="fa fa-user-circle-o nav-i dropdown-toggle" data-toggle="dropdown" aria-hidden="true"></i>
+          <ul class="dropdown-menu">
+            <li><a href="#">你好，{{ userInfo.username }}</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">个人中心</a></li>
+            {% if (userInfo.authority === 'admin') %}
+              <li><a href="/admin">后台管理</a></li>
+            {% endif %}
+            <li><a href="">退出</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<main>
+  {% block main %} {% endblock %}
+</main>
+<footer>
+  <div class="container text-center">
+    <ul class="footer-link nav-font-color">
+      <li><a href="">关于本站</a></li>
+      <li>© 2017-20xx 14本计算机一班林世茂 版权所有</li>
+    </ul>
+  </div>
+</footer>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/user_index.js"></script>
+<script src="/js/send_info.js"></script>
+<script src="/js/content_index.js"></script>
+</body>
+</html>

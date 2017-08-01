@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="/" id="logo">
+      <img src="img/logo.png" alt="">
+    </a>
+    <h3 class="wel">欢迎登录班级事务发布系统</h3>
+  </div>
+</header>
+<main id="content">
+  <div class="container">
+    <form class="form-horizontal col-md-8 center-block" id="login" style="float: none;" method="post">
+        <div class="form-group">
+          <label for="user" class="control-label"></label>
+          <div class="col-sm-8 col-md-5 f-position">
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+            <input type="text" class="form-control" id="user" placeholder="用户名" name="username">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pwd" class="control-label"></label>
+          <div class="col-sm-8 col-md-5 f-position">
+            <i class="fa fa-key" aria-hidden="true"></i>
+            <input type="password" class="form-control" id="pwd" placeholder="请输入密码" name="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="login-wraper">
+            <button type="button" class="btn btn-default" id="btnSend">登 录</button>
+            <a class="register pull-right" href="javascript:;">未注册？点我咯</a>
+          </div>
+        </div>
+    </form>
+    <form class="form-horizontal col-md-8 center-block" action="" id="register" style="float: none;display: none;" method="post">
+      <div class="form-group">
+        <label for="userReg" class="control-label"></label>
+        <div class="col-sm-8 col-md-5 f-position">
+          <i class="fa fa-user-o" aria-hidden="true"></i>
+          <input type="text" class="form-control" id="userReg" placeholder="用户名" name="username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pwdReg" class="control-label"></label>
+        <div class="col-sm-8 col-md-5 f-position">
+          <i class="fa fa-key" aria-hidden="true"></i>
+          <input type="password" class="form-control" id="pwdReg" placeholder="密码" name="password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pwdRegSec" class="control-label"></label>
+        <div class="col-sm-8 col-md-5 f-position">
+          <i class="fa fa-key" aria-hidden="true"></i>
+          <input type="password" class="form-control" id="pwdRegSec" placeholder="请再次输入密码" name="repassword">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="login-wraper">
+          <button type="button" class="btn btn-default">注 册</button>
+          <a class="registered pull-right" href="javascript:;">已注册？返回啊</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+<footer>
+  <div class="container">
+
+  </div>
+</footer>
+<script src="js/jquery.min.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

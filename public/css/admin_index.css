@@ -1,0 +1,35 @@
+.img-wraper {
+  padding-top: 30px;
+}
+
+.img-wraper > div a{
+  position: relative;
+}
+
+.img-wraper > div a p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
+  width: 100%;
+  height: 0;
+  background-color: rgba(128, 130, 127, 0);
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+}
+
+.img-wraper > div a:hover p{
+  height: 100%;
+  transition: all .5s ease;
+  background-color: rgba(14, 44, 51, .7);
+}
+
+.img-text {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+}

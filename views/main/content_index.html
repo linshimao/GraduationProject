@@ -1,0 +1,70 @@
+{% extends './layout.html' %}
+{% block main %}
+  <div class="container"> <!-- 主体内容部分 -->
+    {% if userInfo.isAdmin %}
+    <div class="admin-tip text-center">
+      <p>尊敬的：{{ userInfo.username }}，您是本系统超级管理员,您发布的所有事务如下所示：</p>
+    </div>
+    {% endif %}
+    <div class="row">
+      <div class="col-md-10 article-wraper">
+        {% for content in contents %}
+            <article> <!-- 事务 -->
+              <section>
+                <h2>{{ content.title }}</h2>
+                <p class="help-block">发布时间：{{ content.sendTime | date('Y年m月d日 H:i:s', -8*60) }}</p>
+              </section>
+              <div class="pre-cont"> <!-- 通知预览部分 -->
+                <p>{{ content.preContent }}</p>
+                <div class="info-wrap">
+                  <div class="collapse">
+                    <p>
+                      {{ content.mainContent }}
+
+                    </p>
+                    <button class="btn btn-info pull-right" type="button" style="">确定</button>
+                  </div>
+                </div>
+                <p><i class="fa fa-angle-double-down j-i" aria-hidden="true"></i></p>
+              </div>
+              {% if !(userInfo.authority === 'admin') %}
+              <div class="light-circle"> <!-- 通知右侧的小球 -->
+              </div>
+              {% endif %}
+            </article> <!-- /事务 -->
+        {% endfor %}
+        <aside class="main-footer">
+          <h4 class="text-center">总共{{ counts }}条数据，每页显示{{ limit }}条，总共{{ pages }}页，当前第{{ page }}页</h4>
+          <nav class="col-md-4 center-block" style="float: none;">
+            <ul class="pager">
+              <li class="previous">
+                {% if page <= 1 %}
+                  <span class="help-block">没有上一页了</span>
+                {% else %}
+                  <a href="/api/content?page={{ page-1 }}">
+                    <span aria-hidden="true">&larr;</span> 上一页
+                  </a></li>
+                {% endif %}
+              <li class="next">
+                {% if page >= pages %}
+                  <span>没有下一页了</span>
+                {% else %}
+                <a href="/api/content?page={{ page+1 }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                {% endif %}
+            </ul>
+          </nav>
+        </aside>
+      </div>
+      <div class="col-md-2">
+        <aside class="tips"> <!-- 存放tips -->
+          <p class="help-block">温馨提醒：</p>
+          <p class="help-block">1、当你登陆该页面时，显示的都是"与我相关"的事务。</p>
+          <p class="help-block">2、所有事务右侧都有一个"<i class="fa fa-circle-thin" aria-hidden="true">"</i>的图标</p>
+          <p class="help-block">3、当您未确认查看该事务时，该图标是红色的，确认查看后该图标是绿色的。</p>
+          <p class="help-block">4、在事务详情后面有确认浏览完毕的按钮,浏览完毕务必点击确认，才能使图标变成绿色。</p>
+          <p class="help-block">5、图标变成绿色代表事务发布者已经收到你已查看完毕该事务的消息。</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+{% endblock %}

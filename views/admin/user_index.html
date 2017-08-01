@@ -1,0 +1,58 @@
+{% extends '../main/layout.html' %}
+{% block main %}
+<div class="container">
+  <table class="table table-hover">
+    <tr>
+      <th>用户名</th>
+      <th>密码</th>
+      <th>用户角色</th>
+      <th>注册时间</th>
+      <th>注册ip</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.username }}</td>
+      <td>{{ user.password }}</td>
+      <td>
+        {% if user.authority === "admin" %}
+          管理员
+        {% elseif user.authority === "normalUser"%}
+          普通用户
+        {% else %}
+          高级用户
+        {% endif %}
+      </td>
+      <td>{{ user.regTime | date('Y年m月d日 H:i:s', -8*60)}}</td>
+      <td>{{ user.regAddr }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+<aside>
+  <div class="container">
+    <h4 style="text-align: right;">总共有{{ count }}条数据，每页显示{{ limit }}条数据，当前第 {{ page }}页</h4>
+    <nav class="col-md-4 center-block" style="float: none;">
+      <ul class="pager">
+        <li class="previous">
+          {% if page <= 1 %}
+          <span>没有上一页了</span>
+          {% else %}
+          <a href="/admin/user?page={{ page-1 }}">
+            <span aria-hidden="true">&larr;</span>
+            上一页
+          </a>
+          {% endif %}
+        </li>
+        <li class="next">
+          {% if page >= pages %}
+          <span>没有下一页了</span>
+          {% else %}
+          <a href="/admin/user?page={{ page+1 }}">下一页 <span aria-hidden="true">&rarr;</span>
+          </a>
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
+{% endblock %}

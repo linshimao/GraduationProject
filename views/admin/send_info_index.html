@@ -1,0 +1,30 @@
+{% extends '../main/layout.html' %}
+{% block main %}
+<div class="container">
+  <section>
+    <h3>发布新事务</h3>
+  </section>
+  <form method="post" id="contentForm">
+    <div class="form-group">
+      <label for="contentTitle">标题：</label>
+      <input type="text" class="form-control" id="contentTitle" placeholder="在此输入标题" name="contentTitle">
+    </div>
+    <div class="form-group">
+      <label for="preContent">概要：</label>
+      <input type="text" class="form-control" id="preContent" placeholder="在此输入事务概要" name="preContent">
+    </div>
+    <div class="form-group">
+      <label for="content">正文：</label>
+      <textarea class="form-control" rows="3" id="content" placeholder="事务正文部分" name="content"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="whoReceive">选择通知对象：</label>
+      <select name="" id="whoReceive" class="form-control">
+        <option value="normalUser">所有用户</option>
+        <option value="superUser">高级用户</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-info" id="sendInfoBtn">发布</button>
+  </form>
+</div>
+{% endblock %}

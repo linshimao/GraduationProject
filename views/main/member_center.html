@@ -1,0 +1,30 @@
+{% extends './layout.html' %}
+{% block main %}
+<div class="container">
+  <section>
+    <h3>个人资料修改</h3>
+  </section>
+  <form method="post" id="contentForm">
+    <div class="form-group">
+      <label for="contentTitle">账号：</label>
+      <input type="text" class="form-control" id="contentTitle" placeholder="{{userInfo.username}}" name="account" disabled>
+    </div>
+    <div class="form-group">
+      <label for="newPwd">新密码：</label>
+      <input type="text" class="form-control" id="newPwd" placeholder="新密码" name="newPassword">
+    </div>
+    <div class="form-group">
+      <label for="contact">QQ：</label>
+      <input type="text" class="form-control" id="contact" placeholder="{{userInfo.contact_q}}" name="contact_q">
+    </div>
+    <div class="form-group">
+      <label for="phone">电话号码：</label>
+      <input type="number" class="form-control" id="phone" placeholder="{{userInfo.contact_n}}" name="contact_n">
+    </div>
+    <div class="form-group pull-right">
+      <button type="button" class="btn btn-info" id="saveInfoBtn">保存</button>
+      <button type="reset" class="btn btn-danger">取消</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

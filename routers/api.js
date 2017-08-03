@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
 var Info = require('../models/Info');
+// var Personal_information = require('../models/Personal_information');
 
 var responseData
    ,data;
@@ -108,9 +109,10 @@ router.post('/users/login', function (req, res, next) {
       req.cookies.set('userInfo', JSON.stringify({
         _id: userInfo._id,
         username: new Buffer(userInfo.username).toString('base64'),
-        authority: userInfo.authority
+        authority: userInfo.authority,
+        contact_q: userInfo.contact_q,
+        contact_n: userInfo.contact_n
       }));
-
       // console.log(userInfo)
       res.json(responseData);
 
@@ -126,6 +128,7 @@ router.get('/content', function (req, res) {
   var limit = 5;
   var skip = 0;
   var queryData = {};
+  var content_arr = []; //稍后存储符合查询条件的所有用户
 
   if (req.userInfo.authority === 'admin' ) {
       queryData = {};
@@ -138,12 +141,11 @@ router.get('/content', function (req, res) {
     pages = Math.ceil(counts / limit);
     skip = (page - 1) * limit;
     // console.log(skip);
-    Info.find().skip(skip).limit(limit).sort({_id: -1}).then(function (contents) {
+    Info.find(queryData).skip(skip).limit(limit).sort({_id: -1}).then(function (contents) {
       page = Math.min(page, pages);
       page = Math.max(page, 1);
-      // console.log(contents);
-      // console.log(req.userInfo)
-      // console.log(skip)
+      // responseData.k_arr = k_arr;
+      // console.log(k_arr)
       res.render('main/content_index', {
         contents: contents,
         userInfo: req.userInfo,
@@ -151,15 +153,71 @@ router.get('/content', function (req, res) {
         page: page,
         limit: limit,
         counts: counts
-      });
+      })
     });
   })
-
-
 });
 
 router.get('/about', function (req, res) {
-  res.render('main/about')
+  res.render('main/about', {
+    userInfo: req.userInfo
+  });
 });
 
+router.get('/member_center', function (req, res) {
+  // console.log(req.userInfo);
+  // console.log(req.userInfo)
+  res.render('main/member_center', {
+    userInfo: req.userInfo
+  });
+});
+
+router.post('/users/edit', function (req, res) {
+  // console.log(req.body); // { newPassword: '', contact_q: '', contact_n: '' }
+  var newPassword = req.body.newPassword
+    , contact_q = req.body.contact_q
+    , contact_n = req.body.contact_n;
+
+    if (newPassword == '') {
+      responseData.message = '密码不能为空';
+      responseData.code = 1;
+      res.json(responseData);
+      return false;
+    }
+
+    if (contact_q == '') {
+      responseData.message = 'QQ号码不能为空';
+      responseData.code = 2;
+      res.json(responseData);
+      return false;
+    }
+
+
+    if (contact_n == '') {
+      responseData.message = '手机号码不能为空';
+      responseData.code = 3;
+      res.json(responseData);
+      return false;
+    }
+
+    User.update({_id: req.userInfo._id}, { $set: { password: newPassword, contact_q: contact_q, contact_n: contact_n } }).then(function () {
+      // console.log(result);
+      req.cookies.set('userInfo', null);
+      responseData.message = '用户资料更新成功';
+      responseData.code = 0;
+      res.json(responseData);
+    })
+});
+
+router.get('/logout', function (req, res) {
+  req.cookies.set('userInfo', null);
+  res.redirect('/');
+});
+
+router.get('/content/chat', function (req, res) {
+  // console.log(req.userInfo)
+  res.render('main/content_chat', {
+    userInfo: req.userInfo
+  })
+});
 module.exports = router;

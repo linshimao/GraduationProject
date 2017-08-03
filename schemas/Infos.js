@@ -15,8 +15,5 @@ module.exports = new mongoose.Schema({
     type: String,
     default: 'normalUser'
   },
-  hasRead: {
-    type: Boolean,
-    default: false
-  }
+  receiver: []
 });

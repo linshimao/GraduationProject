@@ -20,16 +20,15 @@
                   <div class="collapse">
                     <p>
                       {{ content.mainContent }}
-
                     </p>
-                    <button class="btn btn-info pull-right" type="button" style="">确定</button>
                   </div>
                 </div>
+                <input type="hidden" value="{{ content._id.toString() }}" name="view">
+                <button class="btn btn-info pull-right btn-sure" type="button" style="display: none;">收到</button>
                 <p><i class="fa fa-angle-double-down j-i" aria-hidden="true"></i></p>
               </div>
               {% if !(userInfo.authority === 'admin') %}
-              <div class="light-circle"> <!-- 通知右侧的小球 -->
-              </div>
+                <div class="light-circle"></div> <!-- 通知右侧的小球 -->
               {% endif %}
             </article> <!-- /事务 -->
         {% endfor %}

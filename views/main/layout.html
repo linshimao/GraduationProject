@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/admin_index.css">
+  <link rel="stylesheet" href="/css/content_chat.css">
 </head>
 <body>
 <header>
@@ -26,7 +27,7 @@
       <nav class="col-md-9 navbar">
         <ul class="nav nav-tabs nav-font-color">
           <li><a href="/api/content">首页</a></li>
-          <li><a href="">事务交流</a></li>
+          <li><a href="/api/content/chat">事务交流</a></li>
           <li><a href="/api/about">关于</a></li>
         </ul>
       </nav>
@@ -36,11 +37,11 @@
           <ul class="dropdown-menu">
             <li><a href="#">你好，{{ userInfo.username }}</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">个人中心</a></li>
+            <li><a href="/api/member_center">个人中心</a></li>
             {% if (userInfo.authority === 'admin') %}
               <li><a href="/admin">后台管理</a></li>
             {% endif %}
-            <li><a href="">退出</a></li>
+            <li><a href="/api/logout">退出</a></li>
           </ul>
         </div>
       </div>
@@ -65,5 +66,6 @@
 <script src="/js/user_index.js"></script>
 <script src="/js/send_info.js"></script>
 <script src="/js/content_index.js"></script>
+<script src="/js/edit_personal_information.js"></script>
 </body>
 </html>

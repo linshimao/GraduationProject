@@ -21,6 +21,10 @@ main article section {
   padding-left: 155px;
 }
 
+.pre-cont .btn-sure {
+  position: absolute;
+  right: 125px;
+}
 .pre-cont p {
   font-size: 21px;
   color: #828290;
@@ -43,7 +47,7 @@ main article section {
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 100px;
+  right: 20px;
   margin: auto;
 }
 
@@ -54,6 +58,7 @@ main article section {
   background: #ff0000;
   border: 3px solid #968d9a;
   background-clip: border-box;
+  transition: all .5s ease;
 }
 
 /* about */
@@ -78,9 +83,11 @@ main article section {
 }
 .about-p {
   font-size:20px;
-  padding: 40px 0;
+  padding: 40px 175px 40px 0;
 }
-
+.about-p-odd {
+  padding: 40px 0 40px 175px;
+}
 .bgc {
   background-color: #ccc;
 }

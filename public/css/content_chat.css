@@ -1,0 +1,17 @@
+.chat-wraper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 450px;
+  border: 10px solid #8c8c8c;
+}
+
+.ct-send {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 20px;
+}
+
+.chat-message-contain {
+  line-height: 65px;
+  font-size: 16px;
+}

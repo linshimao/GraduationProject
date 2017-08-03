@@ -1,0 +1,73 @@
+{% extends './layout.html' %}
+{% block main %}
+<div class="container">
+  <section class="text-center">
+    <h3>尊敬的:{{userInfo.username}}</h3>
+    <p>与大家来个随心所欲的班级事务交流吧！！</p>
+  </section>
+
+  <div class="chat-wraper col-md-8 col-md-offset-2">
+
+    <div class="chat-message-contain chat-send-by-others"> <!-- 其他用户发送的消息 -->
+      <span class="user-info">
+        那个谁:
+      </span>
+      <span class="mes-content">
+        大家好啊！！
+      </span>
+    </div> <!-- /其他用户发送的消息 -->
+
+    <div class="chat-message-contain chat-me pull-right"> <!-- 我自己发送的消息 -->
+      <span class="mes-content">
+        你好啊
+      </span>
+      <span class="user-info">
+        :我
+      </span>
+    </div> <!-- /我自己发送的消息 -->
+
+    <div class="chat-message-contain chat-send-by-others"> <!-- 其他用户发送的消息 -->
+      <span class="user-info">
+        那个谁:
+      </span>
+      <span class="mes-content">
+        大家好啊！！
+      </span>
+    </div> <!-- /其他用户发送的消息 -->
+
+    <div class="chat-message-contain chat-send-by-others"> <!-- 其他用户发送的消息 -->
+      <span class="user-info">
+        那个谁:
+      </span>
+      <span class="mes-content">
+        大家好啊！！
+      </span>
+    </div> <!-- /其他用户发送的消息 -->
+    <div class="chat-message-contain chat-me pull-right"> <!-- 我自己发送的消息 -->
+      <span class="mes-content">
+        你好啊
+      </span>
+      <span class="user-info">
+        :我
+      </span>
+    </div> <!-- /我自己发送的消息 -->
+
+    <div class="chat-message-contain chat-send-by-others"> <!-- 其他用户发送的消息 -->
+      <span class="user-info">
+        那个谁:
+      </span>
+      <span class="mes-content">
+        大家好啊！！
+      </span>
+    </div> <!-- /其他用户发送的消息 -->
+  </div>
+    <div class="col-md-8 col-md-offset-2 ct-send">
+      <div class="input-group">
+        <input type="text" class="form-control" aria-label="...">
+        <div class="input-group-btn">
+          <button class="btn btn-default">发送</button>
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

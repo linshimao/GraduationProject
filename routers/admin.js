@@ -3,6 +3,7 @@ var router = express.Router();
 var Category = require('../models/Category');
 var User = require('../models/User');
 var Info = require('../models/Info');
+var Message_with_reader = require('../models/Message_with_reader');
 
 const responseData = {};
 router.get('/', function (req, res) {
@@ -39,7 +40,6 @@ router.get('/infos', function (req, res) {
 });
 
 router.post('/contents', function (req, res) {
-
   //body: { contentTitle: '标题', preContent: '概要', '$content': '正文' }
   var contentTitle = req.body.contentTitle;
   var preContent = req.body.preContent
@@ -50,10 +50,53 @@ router.post('/contents', function (req, res) {
     preContent: preContent,
     mainContent: content,
     receiveMember: whoReceived
-  }).save().then(function () {
+  }).save().then(function (result) { // result返回新插入的数据
     responseData.message = '保存成功';
     res.json(responseData);
   });
+
+});
+
+router.post('/contents/view', function (req, res) {
+
+    // tip.receiver.push(req.body.view);
+    // Info.findById(req.body.view).then(function (result) {
+      // console.log(result)
+      // console.log(typeof tip)
+      Info.update({_id: req.body.view}, { $addToSet : { receiver : req.userInfo._id}}, function (err, raw) {
+        if (err) {
+          console.log(err);
+        } else {
+          // console.log(raw)
+          responseData.message = '已阅读';
+          responseData.code = 0;
+          res.json(responseData);
+
+        }
+      });
+
+    // })
+});
+
+router.get('/content/ask', function (req, res) {
+  var queryData = {};
+  if (req.userInfo.authority === 'admin' ) {
+    queryData = {};
+  } else {
+    queryData["receiveMember"] = req.userInfo.authority;
+  }
+  Info.find(queryData).then(function (contents) {
+    var k_arr = [];
+    // console.log(contents)
+    for (var k in contents) {
+      if (contents[k].receiver.indexOf(req.userInfo._id) !== -1) {
+        k_arr.push(k)
+      }
+    }
+    responseData.k_arr = k_arr;
+    responseData.message = '查询成功';
+    res.json(responseData);
+  })
 
 });
 module.exports = router;

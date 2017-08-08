@@ -1,73 +1,61 @@
 {% extends './layout.html' %}
 {% block main %}
+
+<div id="nickname" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">请输入你的聊天昵称</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="typeNickname" class="control-label hide">昵称</label>
+            <input type="text" class="form-control" id="typeNickname" placeholder="在此输入聊天昵称">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="sendNickname">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <section class="text-center">
     <h3>尊敬的:{{userInfo.username}}</h3>
-    <p>与大家来个随心所欲的班级事务交流吧！！</p>
   </section>
 
-  <div class="chat-wraper col-md-8 col-md-offset-2">
-
-    <div class="chat-message-contain chat-send-by-others"> <!-- 其他用户发送的消息 -->
-      <span class="user-info">
-        那个谁:
-      </span>
-      <span class="mes-content">
-        大家好啊！！
-      </span>
-    </div> <!-- /其他用户发送的消息 -->
-
-    <div class="chat-message-contain chat-me pull-right"> <!-- 我自己发送的消息 -->
-      <span class="mes-content">
-        你好啊
-      </span>
-      <span class="user-info">
-        :我
-      </span>
-    </div> <!-- /我自己发送的消息 -->
-
-    <div class="chat-message-contain chat-send-by-others"> <!-- 其他用户发送的消息 -->
-      <span class="user-info">
-        那个谁:
-      </span>
-      <span class="mes-content">
-        大家好啊！！
-      </span>
-    </div> <!-- /其他用户发送的消息 -->
-
-    <div class="chat-message-contain chat-send-by-others"> <!-- 其他用户发送的消息 -->
-      <span class="user-info">
-        那个谁:
-      </span>
-      <span class="mes-content">
-        大家好啊！！
-      </span>
-    </div> <!-- /其他用户发送的消息 -->
-    <div class="chat-message-contain chat-me pull-right"> <!-- 我自己发送的消息 -->
-      <span class="mes-content">
-        你好啊
-      </span>
-      <span class="user-info">
-        :我
-      </span>
-    </div> <!-- /我自己发送的消息 -->
-
-    <div class="chat-message-contain chat-send-by-others"> <!-- 其他用户发送的消息 -->
-      <span class="user-info">
-        那个谁:
-      </span>
-      <span class="mes-content">
-        大家好啊！！
-      </span>
-    </div> <!-- /其他用户发送的消息 -->
+  <div class="col-md-4">
+    <div class="panel panel-info">
+      <!-- Default panel contents -->
+      <div class="panel-heading">在线用户列表</div>
+      <ul class="list-group" id="jUserList">
+        <li class="list-group-item">
+          <a href="">
+            <img src="" alt="">
+          </a>
+          <span></span>
+        </li>
+      </ul>
+    </div>
   </div>
-    <div class="col-md-8 col-md-offset-2 ct-send">
-      <div class="input-group">
-        <input type="text" class="form-control" aria-label="...">
-        <div class="input-group-btn">
-          <button class="btn btn-default">发送</button>
-        </div>
+  <div class="chat-wraper col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading"><p class="text-right">你的匿名昵称：<span class="span-nickname"></span></p></div>
+      <div class="panel-body">
       </div>
+    </div>
+  </div>
+    <div class="col-md-8 col-md-offset-4 ct-send">
+      <form class="input-group">
+        <input id="chatMsg" type="text" class="form-control" aria-label="...">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default">发送</button>
+        </div>
+      </form>
   </div>
 </div>
 {% endblock %}

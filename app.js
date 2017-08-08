@@ -6,6 +6,29 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Cookies = require('cookies');
 
+var http = require('http').Server(app);
+
+var io = require('socket.io')(http);
+
+var userList = [];
+io.on('connection', function (socket) {
+  socket.on('login', function (user) {
+    // console.log(socket.id); // 每个客户端在建立连接的时候，服务器都会为他创建一个id
+    user.id = socket.id;
+    userList.push(user);
+    io.emit('userList', userList);
+    socket.emit('userInfo', user);
+    socket.broadcast.emit('loginInfo', user.name + '上线了!', 1);
+    socket.on('disconnect', function () {
+      socket.broadcast.emit('loginInfo', user.name + '下线了!', 0);
+    });
+  });
+  socket.on('toAll', function (msgObj) {
+    socket.emit('toEvery', msgObj);
+    socket.broadcast.emit('toAny', msgObj);
+  });
+});
+
 var User = require('./models/User');
 app.engine('html', swig.renderFile);
 app.set('views', './views');
@@ -50,7 +73,7 @@ mongoose.connect('mongodb://localhost:27017/gp', function (err) {
     console.log('数据库连接失败');
   } else {
     console.log('数据库连接成功, 端口号' + 8888);
-    app.listen(8888);
+    http.listen(8888);
   }
 });
 

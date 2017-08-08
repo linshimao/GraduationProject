@@ -1,10 +1,13 @@
 .chat-wraper {
-  margin-top: 20px;
   margin-bottom: 20px;
   height: 450px;
-  border: 10px solid #8c8c8c;
+  /*border: 10px solid #8c8c8c;*/
+  overflow-y: auto;
 }
 
+.chat-wraper .panel {
+  min-height: 100%;
+}
 .ct-send {
   padding-left: 0;
   padding-right: 0;
@@ -12,6 +15,36 @@
 }
 
 .chat-message-contain {
-  line-height: 65px;
+  line-height: 60px;
   font-size: 16px;
+}
+
+.chat-message-contain .user-info {
+  padding: 0 15px;
+}
+
+.chat-message-contain .mes-content {
+  display: inline-block;
+  border: 2px solid #445;
+  padding: 0 35px;
+  border-radius: 14px;
+  color: #fff;
+}
+
+.chat-me .mes-content {
+  background-color: #969892;
+}
+
+.chat-send-by-others .mes-content{
+  background-color: #009688;
+}
+
+.ct-send .input-group {
+  padding-left: 15px;
+}
+
+.profile-picture {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
 }

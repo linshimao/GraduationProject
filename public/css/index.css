@@ -31,17 +31,46 @@ header a {
   border-radius: 50%;
   margin: 0 auto;
   display: block;
+  transition: all .5s ease;
+  background-color: #caa4a4;
+  color: #e5e5e6;
 }
-
+#content button[type="button"]:focus {
+  outline: none;
+}
+#content button[type="button"]:hover {
+  background-color: #c58d8d;
+  color: #fff;
+}
 
 .login-wraper {
   position: relative;
+  margin-top: 20px;
 }
 a.register {
   display: block;
   position: absolute;
   bottom: -30px;
   right: 60px;
+  color: #8a8787;
+}
+
+.j-note-login-err {
+  position: absolute;
+  top: 41px;
+  color: #de3c23;
+  text-align: center;
+  width: 100%;
+  transition: all .5s ease;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #546789;
+}
+
+.border-red {
+  border: 1px solid #ff1b08;
 }
 /* 身体end */
 

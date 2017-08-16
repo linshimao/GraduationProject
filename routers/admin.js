@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Category = require('../models/Category');
 var User = require('../models/User');
 var Info = require('../models/Info');
-var Message_with_reader = require('../models/Message_with_reader');
 
 const responseData = {};
 router.get('/', function (req, res) {
@@ -13,7 +11,6 @@ router.get('/', function (req, res) {
 router.get('/user', function (req, res) {
   var page = Number(req.query.page || 1);
   var limit = 5;
-
   var pages = 0;
 
   User.count().then(function (count) {
@@ -50,7 +47,7 @@ router.post('/contents', function (req, res) {
     preContent: preContent,
     mainContent: content,
     receiveMember: whoReceived
-  }).save().then(function (result) { // result返回新插入的数据
+  }).save().then(function () { // result返回新插入的数据
     responseData.message = '保存成功';
     res.json(responseData);
   });

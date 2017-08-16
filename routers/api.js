@@ -78,7 +78,7 @@ router.post('/users', function (req, res, next) {
   })
 });
 
-router.post('/users/login', function (req, res, next) {
+router.post('/users/login', function (req, res) {
   var username = req.body.username;
   // console.log(username);
   var password = req.body.password;
@@ -128,7 +128,6 @@ router.get('/content', function (req, res) {
   var limit = 5;
   var skip = 0;
   var queryData = {};
-  var content_arr = []; //稍后存储符合查询条件的所有用户
 
   if (req.userInfo.authority === 'admin' ) {
       queryData = {};
@@ -165,8 +164,6 @@ router.get('/about', function (req, res) {
 });
 
 router.get('/member_center', function (req, res) {
-  // console.log(req.userInfo);
-  // console.log(req.userInfo)
   res.render('main/member_center', {
     userInfo: req.userInfo
   });

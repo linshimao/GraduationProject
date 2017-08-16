@@ -5,9 +5,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Cookies = require('cookies');
-
 var http = require('http').Server(app);
-
 var io = require('socket.io')(http);
 
 var userList = [];
@@ -47,7 +45,6 @@ app.use(function (req, res, next) {
   req.userInfo = {};
   if (req.cookies.get('userInfo')) {
     try {
-      // new Buffer(req.userInfo.username, 'base64').toString();
       req.userInfo = JSON.parse(req.cookies.get('userInfo'));
       req.userInfo.username = new Buffer(req.userInfo.username, 'base64').toString();
       User.findById(req.userInfo._id).then(function (userMess) {
@@ -55,10 +52,9 @@ app.use(function (req, res, next) {
         next();
       })
     } catch (e) {
-        // console.log(111111)
+      throw new Error("cookie读取出错！");
     }
   } else {
-    // conso  le.log(2222222)
     next();
   }
 });

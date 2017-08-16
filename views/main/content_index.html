@@ -14,11 +14,11 @@
                 <h2>{{ content.title }}</h2>
                 <p class="help-block">发布时间：{{ content.sendTime | date('Y年m月d日 H:i:s', -8*60) }}</p>
               </section>
-              <div class="pre-cont"> <!-- 通知预览部分 -->
+              <div class="pre-cont"> <!-- 事务预览部分 -->
                 <p>{{ content.preContent }}</p>
                 <div class="info-wrap">
                   <div class="collapse">
-                    <p>
+                    <p> <!-- 事务体 -->
                       {{ content.mainContent }}
                     </p>
                   </div>

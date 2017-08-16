@@ -6,10 +6,6 @@
 $(function () {
 
   var socket = io();
-  // 滚动条在最底部
-  function scrollToBottom () {
-    $('.chat-wraper').scrollTop($('.chat-wraper')[0].scrollHeight);
-  }
   // 显示模态框
   $('#nickname').modal();
 

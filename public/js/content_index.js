@@ -10,14 +10,19 @@ $(function () {
     url: '/admin/content/ask',
     dataType: 'json',
     success: function (result) {
-      // console.log(result.k_arr);
-      var $light_circle = $('.light-circle');
-      $.each(result.k_arr, function (i, v) {
-        // console.log(i + '---' + v)
-        $light_circle.eq(v).css({
-          backgroundColor: "#13ea39"
-        })
-        })
+      // console.log(result.k_arr);  ["59ad67db3ced640c780d0236", "59b027471a89bc2cc8cb4303", "59b0fe8ad64a1031604291a4"]
+      var $pre_cont = $('.pre-cont');
+      var $pre_cont_id = [];
+      $pre_cont.each(function (i, v) {
+        // console.log($(v).find('input:hidden').val())
+        $(result.k_arr).each(function (index, value) {
+          if ($(v).find('input:hidden').val() == value) {
+            $(v).next().css({
+              'background': 'rgb(19, 234, 57)'
+            })
+          }
+        });
+      });
     }
   });
 

@@ -15,5 +15,9 @@ module.exports = new mongoose.Schema({
     type: String,
     default: 'normalUser'
   },
-  receiver: Array // 已接收对象ID
+  receiver: Array, // 已接收对象ID,
+  hasRead: {
+    type: Boolean,
+    default: false
+  }
 });

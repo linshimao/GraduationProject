@@ -73,6 +73,13 @@ main article section {
   color: #fff;
   font-size: 25px;
   margin: 0 auto;
+  transition: all 1s;
+  transition-delay: .15s;
+
+}
+
+.about-span:hover {
+  transform: rotatey(360deg);
 }
 
 .about-section {

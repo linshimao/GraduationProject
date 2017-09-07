@@ -51,7 +51,7 @@ $(function () {
       success: function (result) {
         // console.log(result)
         if (result.code === 4) {
-          $pwdRegSec.after('<p class="j-note-login-err">该用户名已经存在咯！</p>');
+          $pwdRegSec.after('<p class="j-note-login-err">用户名已存在！</p>');
         }
         if (!result.code) {
           thisObj.html('<i class="fa fa-check" aria-hidden="true"></i>');

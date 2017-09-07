@@ -1,0 +1,35 @@
+{% extends '../main/layout.html' %}
+{% block main %}
+<div class="container">
+  <section>
+    <h3>事务修改</h3>
+    <form method="post" id="contentForm">
+      <div class="form-group">
+        <label for="contentTitle">标题：</label>
+        <input type="text" class="form-control" id="contentTitle" placeholder="" name="contentTitle" value="{{ topic.title }}">
+      </div>
+      <div class="form-group">
+        <label for="preContent">概要：</label>
+        <input type="text" class="form-control" id="preContent" placeholder="" name="preContent" value="{{ topic.preContent }}">
+      </div>
+      <div class="form-group">
+        <label for="content">正文：</label>
+        <textarea class="form-control" rows="3" id="content" placeholder="事务正文部分" name="content">{{ topic.mainContent }}</textarea>
+      </div>
+      <div class="form-group">
+        <label for="whoReceive">修改通知对象：</label>
+        <select name="" id="whoReceive" class="form-control">
+          {% if topic.receiveMember == 'normalUser' %}
+          <option value="normalUser" selected>所有用户</option>
+          <option value="superUser">高级用户</option>
+          {% else %}
+          <option value="normalUser">所有用户</option>
+          <option value="superUser" selected>高级用户</option>
+          {% endif %}
+        </select>
+      </div>
+      <button type="button" class="btn btn-info" id="reSendInfoBtn" data-resend-id="{{ topic._id.toString() }}">重新发布</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

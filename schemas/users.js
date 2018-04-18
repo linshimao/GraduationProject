@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-
 module.exports = new mongoose.Schema({
   username: String, // 用户名
   password: String, // 密码
@@ -22,5 +21,5 @@ module.exports = new mongoose.Schema({
   regAddr: { // 注册ip
     type: String,
     default: ''
-  },
+  }
 });

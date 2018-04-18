@@ -67,6 +67,7 @@ app.use('/admin', require('./routers/admin'));
 mongoose.connect('mongodb://localhost:27017/gp', function (err) {
   if (err) {
     console.log('数据库连接失败');
+    console.log(err);
   } else {
     console.log('数据库连接成功, 端口号' + 8888);
     http.listen(8888);

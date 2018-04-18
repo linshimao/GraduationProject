@@ -29,6 +29,7 @@ $(function () {
 
   var flag = true;
   $('.article-wraper').on('click', '.j-i', function () {
+    // console.log(this);
     var sClass = 'fa-angle-double-';
     $(this).parent('p').siblings('.info-wrap').find('.collapse').collapse('toggle');
     $(this).removeClass(sClass + (flag ? 'down' : 'up')).addClass(sClass + (flag ? 'up' : 'down'));

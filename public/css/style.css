@@ -12,9 +12,9 @@ main article section {
   text-align: center;
 }
 
-.article-wraper {
+/* .article-wraper {
   border-right: 1px solid #e0d7d7;
-}
+} */
 
 .pre-cont {
   padding-top: 30px;
@@ -78,9 +78,9 @@ main article section {
 
 }
 
-.about-span:hover {
+/* .about-article:hover .about-span {
   transform: rotatey(360deg);
-}
+} */
 
 .about-section {
   padding: 10px;

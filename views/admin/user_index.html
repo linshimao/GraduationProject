@@ -1,13 +1,16 @@
 {% extends '../main/layout.html' %}
 {% block main %}
 <div class="container">
-  <table class="table table-hover">
+  <table class="table infos-table table-striped table-hover table-bordered">
     <tr>
       <th>用户名</th>
       <th>密码</th>
       <th>用户角色</th>
+      <th>QQ</th>
+      <th>联系电话</th>
       <th>注册时间</th>
       <th>注册ip</th>
+      <th>用户角色编辑</th>
     </tr>
     {% for user in users %}
     <tr>
@@ -22,8 +25,16 @@
           高级用户
         {% endif %}
       </td>
+      <td>{{ user.contact_q }}</td>
+      <td>{{ user.contact_n }}</td>
       <td>{{ user.regTime | date('Y年m月d日 H:i:s', -8*60)}}</td>
       <td>{{ user.regAddr }}</td>
+      <td>
+          <select class="selectpicker small" data-live-search="true" data-style="btn-success" data-user-id="{{ user.id }}">
+              <option value="normalUser">普通用户</option>
+              <option value="superUser">高级用户</option>
+          </select>
+      </td>
     </tr>
     {% endfor %}
   </table>

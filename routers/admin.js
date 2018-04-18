@@ -5,7 +5,9 @@ var Info = require('../models/Info');
 
 var responseData = {};
 router.get('/', function (req, res) {
-  res.render('admin/admin_index');
+  res.render('admin/admin_index', {
+    userInfo: req.userInfo
+  });
 });
 
 router.get('/user', function (req, res) {
@@ -32,8 +34,28 @@ router.get('/user', function (req, res) {
   })
 });
 
+router.post('/user/authority', function (req, res) {
+  let id = req.body._id,
+      authority = req.body.authority;
+  User.update({_id: id}, {authority: authority}, function (err, raw) {
+    if (err) {
+      responseData.code = 1;
+      responseData.message = '用户权限分配失败';
+      res.json(responseData)
+    } else {
+      responseData.code = 0;
+      responseData.message = '用户权限修改成功'
+      res.json(responseData)
+    }
+
+  })
+  // res.json('')
+})
+
 router.get('/infos', function (req, res) {
-  res.render('admin/send_info_index');
+  res.render('admin/send_info_index', {
+    userInfo: req.userInfo
+  });
 });
 
 router.post('/infos/delete', function (req, res) {
@@ -118,7 +140,8 @@ router.get('/infos/visit', function (req, res) {
         res.render('admin/user_visit_manage', {
           topic: topic,
           userArray: usersArray,
-          receiver: receiveMembers
+          receiver: receiveMembers,
+          userInfo: req.userInfo
         });
       })
   })
@@ -128,26 +151,32 @@ router.post('/contents', function (req, res) {
   //body: { contentTitle: '标题', preContent: '概要', '$content': '正文' }
   var contentTitle = req.body.contentTitle;
   var preContent = req.body.preContent
-     ,content = req.body.content
-     ,whoReceived = req.body.whoReceived;
-  new Info({
-    title: contentTitle,
-    preContent: preContent,
-    mainContent: content,
-    receiveMember: whoReceived
-  }).save().then(function () { // result返回新插入的数据
-    responseData.message = '保存成功';
-    res.json(responseData);
-  });
-
+    ,content = req.body.content
+    ,whoReceived = req.body.whoReceived
+    ,receiverNumbers;
+  User.find({'authority': whoReceived}).then(function (results) {
+    receiverNumbers = results.length;
+    new Info({
+      title: contentTitle,
+      preContent: preContent,
+      mainContent: content,
+      receiveMember: whoReceived,
+      receiverNumbers: receiverNumbers
+    }).save().then(function () { // result返回新插入的数据
+      responseData.message = '保存成功';
+      res.json(responseData);
+    });
+  })
 });
 
 router.get('/infos/manage', function (req, res) {
   // console.log(req);
+  // console.log(req.userInfo);
   Info.find().then(function (results) {
+    console.log(results);
     res.render('admin/info_manage', {
       // infos: infos
-      userInfos: req.userInfos,
+      userInfo: req.userInfo,
       infos: results
     });
   });

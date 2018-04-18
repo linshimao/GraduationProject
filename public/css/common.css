@@ -1,3 +1,16 @@
+/* footer固定在底部 */
+html {
+  height: 100%;
+}
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;
+}
+
 /* i标签 */
 i.fa:hover {
   cursor: pointer;
@@ -38,13 +51,13 @@ ul.nav, .member-center {
 
 /* 底部 */
 footer {
-  padding-top: 40px;
-  height: 120px;
+  padding: 40px;
   background-color: #797373;
 }
 
 .footer-link li {
   line-height: 25px;
+  color: #fff;
 }
 
 /* section h2 */
@@ -68,3 +81,13 @@ section h2 {
   display: block;
 }
 /* 滚动到顶部 */
+
+.g-tips {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  background: #695150;
+  border-radius: 4px;
+  padding: 6px 10px;
+  color: #fff;
+}

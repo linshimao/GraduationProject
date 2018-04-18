@@ -47,20 +47,24 @@ utils.scrollControl = function () {
 /* 获取事务 */
 utils.infosManage = function () {
   $('.infos-table').on('click', '.info-delete-btn', function () {
+    let $this = $(this)
+    $('#remove-modal').modal()
     var _id = $(this).attr('data-info-id');
-    $.ajax({
-      url: '/admin/infos/delete',
-      dataType: 'json',
-      method: 'POST',
-      data: {
-        id: _id
-      },
-      success: function (data) {
-        if (data.code == 0) {
-          alert('删除成功');
-          location.reload();
+    $('#remove-modal').on('click', '.info-del', function () {
+      $.ajax({
+        url: '/admin/infos/delete',
+        dataType: 'json',
+        method: 'POST',
+        data: {
+          id: _id
+        },
+        success: function (data) {
+          if (data.code == 0) {
+            $this.parents('tr').remove()
+            alertify.notify('事务删除成功！', 'success', 3, function(){});
+          }
         }
-      }
+      })      
     })
   })
 };

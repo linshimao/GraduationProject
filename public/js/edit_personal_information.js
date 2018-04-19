@@ -4,6 +4,26 @@ $(function () {
   $phone = $('#phone');
   $saveInfoBtn = $('#saveInfoBtn');
 
+  var showSwal;
+
+  /**
+   * @param {string} msg 提示内容
+   * @param {string} code 0出错 1正确
+   * @param {function} cb 回调参数
+   */
+  showSwal = function (msg, code, cb) {
+    swal({
+      text: msg,
+      icon: code === 0 ? 'error' : 'success',
+      button: {
+        text: '确定'
+      }
+    }).then((result) => {
+      if (result && cb && typeof cb === 'function') {
+        cb()
+      }
+    })
+  }
   $saveInfoBtn.on('click', function () {
     $.ajax({
       type: 'post',
@@ -16,14 +36,18 @@ $(function () {
       dataType: 'json',
       success: function (result) {
         if (result.code === 1) {
-          alert(result.message)
+          showSwal(result.message, 0)
+          return
         } else if (result.code === 2) {
-          alert(result.message);
+          showSwal(result.message, 0)
+          return
         } else if (result.code === 3) {
-          alert(result.message);
+          showSwal(result.message, 0)
+          return
         } else if (result.code === 0) {
-          alert('资料修改成功,请重新登录')
-          window.location.href = '/';
+          showSwal(result.message, 1, function () {
+            window.location.href = '/';
+          })
         }
       }
     })

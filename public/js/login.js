@@ -2,10 +2,14 @@ $(function () {
   var $login = $('#login');
   var $register = $('#register');
   var $user = $('#user') // css用户名ID
-    ,$pwd = $('#pwd') // css密码ID
-    ,$userReg = $('#userReg') // css注册用户名ID
-    ,$pwdReg = $('#pwdReg') // css注册密码ID
-    ,$pwdRegSec = $('#pwdRegSec'); // css重复密码ID
+    ,
+    $pwd = $('#pwd') // css密码ID
+    ,
+    $userReg = $('#userReg') // css注册用户名ID
+    ,
+    $pwdReg = $('#pwdReg') // css注册密码ID
+    ,
+    $pwdRegSec = $('#pwdRegSec'); // css重复密码ID
 
   $login.find('a.register').on('click', function () {
     $login.slideUp(500);
@@ -55,10 +59,10 @@ $(function () {
         }
         if (!result.code) {
           thisObj.html('<i class="fa fa-check" aria-hidden="true"></i>');
-          setTimeout(function () {
+          showSwal('注册成功！', 12, function () {
             $register.slideUp(500);
             $login.slideDown(500);
-          }, 1000)
+          })
         }
       }
     });
@@ -71,7 +75,7 @@ $(function () {
   /**
    * 用户登录
    */
-    function login() {
+  function login() {
     $.ajax({
       type: 'post',
       dataType: 'json',
@@ -83,19 +87,21 @@ $(function () {
       beforeSend: function () {
         $('.j-note-login-err').remove();
         if ($user.val().trim() === '') {
-            $user.after('<p class="j-note-login-err">账号不能为空</p>');
-            add_class($user);
+          $user.after('<p class="j-note-login-err">账号不能为空</p>');
+          add_class($user);
         }
         if ($pwd.val().trim() === '') {
-            $pwd.after('<p class="j-note-login-err">密码不能为空</p>');
-            add_class($pwd);
-            return false;
+          $pwd.after('<p class="j-note-login-err">密码不能为空</p>');
+          add_class($pwd);
+          return false;
         }
       },
       success: function (result) {
         // console.log(result);
         if (result.code == 0) {
-          window.location.href = 'api/content';
+          showSwal('登录成功', 1, function () {
+            window.location.href = 'api/content';
+          })
         } else {
           $('.j-note-login-err').remove();
           $user.after('<p class="j-note-login-err">您输入的账号或密码有误</p>');
@@ -106,70 +112,70 @@ $(function () {
       }
     })
   }
-    $login.find('#btnSend').on('click', function () {
+  $login.find('#btnSend').on('click', function () {
+    login();
+  });
+
+  // 回车提交ajax登录请求
+  $("#login input").keydown(function (event) {
+    // console.log(event.which);
+    if (event.which === 13)
       login();
-    });
+  });
 
-    // 回车提交ajax登录请求
-    $("#login input").keydown(function(event){
-      // console.log(event.which);
-      if (event.which === 13)
-      login();
-    });
+  // 回车提交ajax注册请求
+  $("#register input").keydown(function (event) {
+    // console.log(event.which);
+    if (event.which === 13)
+      register();
+  });
 
-    // 回车提交ajax注册请求
-    $("#register input").keydown(function(event){
-      // console.log(event.which);
-      if (event.which === 13)
-        register();
-    });
-
-    // 输入框写入数据时。移除错误提示
+  // 输入框写入数据时。移除错误提示
   (function () {
-      // 用户登录账号输入框事件
-      $user.on('keydown', function () {
-        input_keydown($(this));
-      });
-      // 用户登录密码输入框事件
-      $pwd.on('keydown', function () {
-        input_keydown($(this));
-      });
+    // 用户登录账号输入框事件
+    $user.on('keydown', function () {
+      input_keydown($(this));
+    });
+    // 用户登录密码输入框事件
+    $pwd.on('keydown', function () {
+      input_keydown($(this));
+    });
 
-      // 用户注册账号输入框事件
-      $userReg.on('keydown', function () {
-        input_keydown($(this));
-      });
+    // 用户注册账号输入框事件
+    $userReg.on('keydown', function () {
+      input_keydown($(this));
+    });
 
-      // 用户注册密码输入框事件
-      $pwdReg.on('keydown', function () {
-        input_keydown($(this));
-      })
+    // 用户注册密码输入框事件
+    $pwdReg.on('keydown', function () {
+      input_keydown($(this));
+    })
 
-      // 用户注册框密码确认事件
-      $pwdRegSec.on('keydown', function () {
-        input_keydown($(this));
-      })
-    })();
+    // 用户注册框密码确认事件
+    $pwdRegSec.on('keydown', function () {
+      input_keydown($(this));
+    })
+  })();
 
 
   (function () {
-      $user.blur(function () {
-        $(this).siblings('p').remove();
-        if ($user.val() === '') {
-          $user.after('<p class="j-note-login-err">账号不能为空</p>');
-          add_class($user);
-        }
-      })
-    })();
+    $user.blur(function () {
+      $(this).siblings('p').remove();
+      if ($user.val() === '') {
+        $user.after('<p class="j-note-login-err">账号不能为空</p>');
+        add_class($user);
+      }
+    })
+  })();
   (function () {
-      $pwd.blur(function () {
-        $(this).siblings('p').remove();
-        if ($pwd.val() === '') {
-          $pwd.after('<p class="j-note-login-err">密码不能为空</p>');
-          add_class($pwd);
-        }
-      })
-    })();
+    $pwd.blur(function () {
+      $(this).siblings('p').remove();
+      if ($pwd.val() === '') {
+        $pwd.after('<p class="j-note-login-err">密码不能为空</p>');
+        add_class($pwd);
+      }
+    })
+  })();
 
   (function () {
     $userReg.blur(function () {
@@ -206,9 +212,11 @@ $(function () {
   function add_class($who) { // 添加class
     $who.addClass('border-red');
   }
+
   function remove_class($who) { // 移除class
     $who.removeClass('border-red');
   }
+
   function input_keydown($who) {
     if ($who.siblings('p')) {
       $who.siblings('p').remove();
@@ -218,6 +226,19 @@ $(function () {
       remove_class($who);
     }
   }
+
+  function showSwal (msg, code, cb) {
+    swal({
+      text: msg,
+      // confirm: true,
+      icon: 'success',
+      button: {
+        text: '确定'
+      }
+    }).then((result) => {
+      if (result && cb && typeof cb === 'function') {
+        cb()
+      }
+    })
+  }
 });
-
-

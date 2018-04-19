@@ -1,6 +1,14 @@
 .visit-yes {
-  color: #48f176;
+    color: #48f176;
 }
+
 .visit-no {
-  color: #f00;
+    color: #f00;
+}
+
+.visit-yes,
+.visit-no {
+    font-size: 18px;
+    font-weight: 700;
+    text-indent: 1em;
 }

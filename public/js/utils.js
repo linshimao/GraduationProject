@@ -1,5 +1,29 @@
-var utils = function () {
-};
+var utils = function () {};
+var showSwal;
+
+/**
+ * @param {string} msg 提示内容
+ * @param {string} code 0出错 1正确
+ * @param {boolean} buttonControl 控制是否显示取消按钮
+ * @param {function} cb 回调参数
+ */
+showSwal = function (msg, code, buttonControl, cb) {
+  swal({
+    text: msg,
+    icon: code,
+    buttons: {
+      confirm: '确定',
+      cancel: {
+        visible: buttonControl,
+        text: '取消'
+      }
+    }
+  }).then((result) => {
+    if (result && cb && typeof cb === 'function') {
+      cb()
+    }
+  })
+}
 /* 屏幕滚动到顶部 */
 utils.scrollToTop = function () {
   var timer;
@@ -9,7 +33,7 @@ utils.scrollToTop = function () {
       scrollFlag = false;
       var scrollTop = $(document).scrollTop();
       var speed = Math.floor(-scrollTop / 8);
-      $(document).scrollTop(scrollTop+speed);
+      $(document).scrollTop(scrollTop + speed);
       if (scrollTop == 0) {
         clearInterval(timer);
       }
@@ -48,9 +72,9 @@ utils.scrollControl = function () {
 utils.infosManage = function () {
   $('.infos-table').on('click', '.info-delete-btn', function () {
     let $this = $(this)
-    $('#remove-modal').modal()
-    var _id = $(this).attr('data-info-id');
-    $('#remove-modal').on('click', '.info-del', function () {
+    // $('#remove-modal').modal()
+    showSwal('确认删除该事务？', 'warning', true, function () {
+      var _id = $this.attr('data-info-id');
       $.ajax({
         url: '/admin/infos/delete',
         dataType: 'json',
@@ -61,10 +85,10 @@ utils.infosManage = function () {
         success: function (data) {
           if (data.code == 0) {
             $this.parents('tr').remove()
-            alertify.notify('事务删除成功！', 'success', 3, function(){});
+            alertify.notify('事务删除成功！', 'success', 3, function () {});
           }
         }
-      })      
+      })
     })
   })
 };
@@ -85,7 +109,7 @@ utils.reSendInfo = function () {
     var preContent = $('#preContent').val();
     var content = $('#content').val();
     var whoReceive = $('#whoReceive').find('option:selected').val(); // superUser/normalUser
-    console.log(whoReceive)
+    // console.log(whoReceive)
     $.ajax({
       url: '/admin/infos/edit',
       method: 'POST',
@@ -98,9 +122,10 @@ utils.reSendInfo = function () {
         whoReceive: whoReceive
       },
       success: function (data) {
-        console.log(data);
         if (data.code == 0) {
-          location.href = '/admin/infos/manage';
+          showSwal(data.message, 'success', false, function () {
+            location.href = '/admin/infos/manage';
+          })
         }
       }
     })

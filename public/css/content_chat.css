@@ -1,50 +1,65 @@
 .chat-wraper {
-  margin-bottom: 20px;
-  height: 450px;
-  /*border: 10px solid #8c8c8c;*/
-  overflow-y: auto;
+    margin-bottom: 20px;
+    height: 450px;
+    /*border: 10px solid #8c8c8c;*/
+    overflow-y: auto;
 }
 
 .chat-wraper .panel {
-  min-height: 100%;
+    min-height: 100%;
 }
+
 .ct-send {
-  padding-left: 0;
-  padding-right: 0;
-  margin-bottom: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 20px;
 }
 
 .chat-message-contain {
-  line-height: 60px;
-  font-size: 16px;
+    line-height: 20px;
+    font-size: 16px;
 }
 
 .chat-message-contain .user-info {
-  padding: 0 15px;
+    padding: 0 15px;
+    color: #9e9e9e;
+    margin: 20px 0 10px;
 }
 
 .chat-message-contain .mes-content {
-  display: inline-block;
-  border: 2px solid #445;
-  padding: 0 35px;
-  border-radius: 14px;
-  color: #fff;
+    /* display: inline-block; */
+    /* border: 2px solid #445; */
+    padding: 11px 35px;
+    border-radius: 14px;
+    color: #fff;
 }
 
 .chat-me .mes-content {
-  background-color: #969892;
+    background-color: #969892;
 }
 
-.chat-send-by-others .mes-content{
-  background-color: #009688;
+.chat-send-by-others .mes-content {
+    background-color: #009688;
 }
 
 .ct-send .input-group {
-  padding-left: 15px;
+    padding-left: 15px;
 }
 
 .profile-picture {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+    width: 60px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.list-group-item img {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.chat-name {
+    color: #888;
+    padding-left: 1em;
 }

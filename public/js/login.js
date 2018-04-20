@@ -37,15 +37,47 @@ $(function () {
         repassword: $register.find('[name="repassword"]').val()
       },
       beforeSend: function () {
+        var pat = /[\u4E00-\u9FA5]/; // 中文
+        var pat2 = /^[a-zA-Z0-9_]{4,16}$/; // 字母数字下划线
+        var pat3 = /^[a-zA-Z0-9_]{6,16}$/; // 字母数字下划线
+
         $('.j-note-login-err').remove();
         if ($userReg.val().trim() === '') {
           $userReg.after('<p class="j-note-login-err">账号不能为空</p>');
           add_class($userReg);
+          return false;
         }
+
+        if (pat.test($userReg.val().trim())) {
+          $userReg.after('<p class="j-note-login-err">用户名不能包含中文</p>');
+          add_class($userReg);
+          return false;
+        }
+
+        if (!pat2.test($userReg.val().trim())) {
+          // console.log(pat2.test($userReg.val().trim()));
+          $userReg.after('<p class="j-note-login-err">只可包含字母、数字、下划线，长度4-16</p>');
+          add_class($userReg);
+          return false;
+        }
+        // if ($userReg.val().trim().length < 8) {
+        //   $userReg.after('<p class="j-note-login-err"></p>');
+        //   add_class($userReg);
+        //   return false;
+        // }
         if ($pwdReg.val().trim() === '') {
           $pwdReg.after('<p class="j-note-login-err">密码不能为空</p>');
           add_class($pwdReg);
+          return false;
         }
+        
+        if (!pat3.test($pwdReg.val().trim())) {
+          // console.log(pat2.test($userReg.val().trim()));
+          $pwdRegSec.after('<p class="j-note-login-err">只可包含字母、数字、下划线，长度6-16</p>');
+          add_class($pwdReg);
+          return false;
+        }
+
         if ($pwdRegSec.val().trim() !== $pwdReg.val().trim()) {
           $pwdRegSec.after('<p class="j-note-login-err">两次输入密码不一致</p>');
           add_class($pwdRegSec);

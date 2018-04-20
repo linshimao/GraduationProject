@@ -8,20 +8,19 @@ $(function () {
   var socket = io();
   // 显示模态框
   $('#nickname').modal();
-
   $('#sendNickname').on('click', function () {
     var name = $('#typeNickname').val();
-//    if (checkNickname(name)) {
-//      alert('该昵称已经被人使用了!!!');
-//    } else {
-    var imgList = ['/img/1.png', '/img/2.png'];
-    var randomNum = Math.floor(Math.random() * 2);
+    if (!name) {
+      showSwal('匿名昵称不能为空', 'error')
+      return
+    }
+    var imgList = ['/img/1.png', '/img/2.png', '/img/3.jpeg', '/img/4.jpeg', '/img/5.jpeg'];
+    var randomNum = Math.floor(Math.random() * 5);
     var img = imgList[randomNum];
     var dataObj = {
       name: name,
       img: img
     };
-//    }
     socket.emit('login', dataObj);
     $('#nickname').modal('hide');
     $('#typeNickname').val('');
@@ -53,7 +52,6 @@ $(function () {
   });
 
   socket.on('userInfo', function (user) {
-    // console.log(user); //   Object {name: "s", img: "/img/2.png", id: "SRP5N10l1Egj43bxAAAH"}
     userSelf = user;
     $('.span-nickname').text(user.name);
   });
@@ -65,4 +63,27 @@ $(function () {
   socket.on('toAny', function (msgObj) {
     addMsgFromUser(msgObj, false);
   })
+
+  /******************************************************************************************** */
+  /*----------------------------------------METHOD----------------------------------------------*/
+  function showSwal (msg, code, cb) {
+    swal({
+      text: msg,
+      icon: code || 'success',
+      button: {
+        text: '确定'
+      }
+    }).then((result) => {
+      if (result && cb && typeof cb === 'function') {
+        cb()
+      }
+    })
+  }
+
+  $('#nickname').on('click', 'button[data-dismiss="modal"]' ,function (e) {
+    location.href = '/api/content'
+  })
+  
+  /*---------------------------------------METHOD--END-----------------------------------------*/
+  /******************************************************************************************** */
 });

@@ -1,19 +1,30 @@
 
+
+var configMap = {
+  userList:  '<li class="list-group-item">' +
+                '<a href="#">' +
+                  '<img src="${userImg}" alt="">' +
+                '</a>' +
+                '<span class="chat-name">${username}</span>' +
+              '</li>'
+}
+
+var addUser;
 // 滚动条在最底部
 function scrollToBottom () {
   $('.chat-wraper').scrollTop($('.chat-wraper')[0].scrollHeight);
 }
 
 // 添加用户到在线列表
-function addUser(userList) {
+addUser = function (userList) {
   var $user_list = $('#jUserList');
-  var $uLiClone = $user_list.children('li:first').clone();
+  var html = ''
+  var userHtml = configMap.userList
+  $user_list.html('')
   for (var i in userList) {
-    // console.log(userList[i]) // Object {name: "egrey ", img: "/img/2.png", id: "t6MVGw9ozIfNbARBAAAL"}
-    $uLiClone.children('span').text(userList[i].name);
-    $uLiClone.children('a').children('img').attr('src', userList[i].img)
-    $user_list.append($uLiClone);
+    html += userHtml.replace(/\${username}/g, userList[i].name).replace(/\${userImg}/g, userList[i].img)
   }
+  $user_list.append(html)
 }
 
 // 添加系统提示消息
@@ -24,10 +35,10 @@ function addMsgFromSys(msg, type) {
 // 发送用户消息
 function addMsgFromUser(msgObj, isSelf) {
   // var randomNum = Math.
-  console.log(msgObj)
+  // console.log(msgObj)
   // console.log(msgObj)
   var msgType = isSelf ? 'chat-me' : 'chat-send-by-others';
-  console.log(isSelf, '====')
+  // console.log(isSelf, '====')
   var msgHtml = isSelf ? $('<div class="chat-message-contain text-right">' +
     '<p class="user-info"></p>' +
     '<span class="mes-content"></span>' +

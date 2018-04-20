@@ -18,7 +18,13 @@ io.on('connection', function (socket) {
     socket.emit('userInfo', user);
     socket.broadcast.emit('loginInfo', user.name + '上线了!', 1);
     socket.on('disconnect', function () {
+      userList.forEach(function (item, index) {
+        if (item.id === user.id) {
+          userList.splice(index, 1)
+        }
+      })
       socket.broadcast.emit('loginInfo', user.name + '下线了!', 0);
+      io.emit('userList', userList);
     });
   });
   socket.on('toAll', function (msgObj) {
@@ -55,14 +61,35 @@ app.use(function (req, res, next) {
       throw new Error("cookie读取出错！");
     }
   } else {
-    next();
+    // next();
+    // res.redirect('/')
+    next()
   }
 });
 
+// app.all('/api/*', function (req, res, next) {
+//   // console.log(req.cookies);
+//   if (req.cookies.get('userInfo')) {
+//     next()
+//   } else {
+//     res.redirect('/')
+//   }
+// })
+
+// app.all('/admin/*', function (req, res, next) {
+//   // console.log(req.cookies);
+//   if (req.cookies.get('userInfo')) {
+//     next()
+//   } else {
+//     res.redirect('/')
+//   }
+// })
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routers/main'));
 app.use('/api', require('./routers/api'));
 app.use('/admin', require('./routers/admin'));
+
+
 
 mongoose.connect('mongodb://localhost:27017/gp', function (err) {
   if (err) {

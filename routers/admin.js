@@ -5,6 +5,10 @@ var Info = require('../models/Info');
 
 var responseData = {};
 router.get('/', function (req, res) {
+  if (!req.cookies.get('userInfo')) {
+    res.redirect('/')
+    return false
+  }
   res.render('admin/admin_index', {
     userInfo: req.userInfo
   });
@@ -45,11 +49,20 @@ router.post('/user/authority', function (req, res) {
     } else {
       responseData.code = 0;
       responseData.message = '用户权限修改成功'
+      Info.find().then(function (results) {
+        results.forEach(function (item, index) {
+          if (item.receiveMember === authority) {
+            item.receiverNumbers += 1
+          } else {
+            item.receiverNumbers -= 1
+          }
+          item.markModified('receiveMembers');
+          item.save()
+        })
+      })
       res.json(responseData)
     }
-
   })
-  // res.json('')
 })
 
 router.get('/infos', function (req, res) {
@@ -62,13 +75,13 @@ router.post('/infos/delete', function (req, res) {
   var deleteInfoId = req.body.id;
   Info.remove({_id: deleteInfoId}, function (err, result) {
     if (err) {
-      console.log(err + '删除失败');
+      // console.log(err + '删除失败');
       responseData.code = 1;
       responseData.message = '删除失败';
       res.json(responseData);
       return false;
     } else {
-      console.log(result+':删除成功');
+      // console.log(result+':删除成功');
       responseData.code = 0;
       responseData.message = '删除成功';
       res.json(responseData);
@@ -81,10 +94,11 @@ router.get('/infos/edit', function (req, res) {
   var editId = req.query.id;
   // console.log(req.query.id)
   Info.findById(editId).then(function (topic) {
-    console.log(topic)
+    // console.log(topic)
     res.render('admin/info_edit', {
       topic: topic,
-      id: editId
+      id: editId,
+      userInfo: req.userInfo
     });
   })
 
@@ -100,16 +114,28 @@ router.post('/infos/edit', function (req, res) {
   // console.log(editId);
   Info.update({_id: editId}, { $set: { title: contentTitle, preContent: preContent, mainContent: content, receiveMember: whoReceive}}, function (err, docs) {
     if (err) {
-      console.log(err + '重新发布事务失败');
+      // console.log(err + '重新发布事务失败');
       responseData.code = 1;
       responseData.message = '重新发布事务失败';
       res.json(responseData);
       return false;
     } else {
-      console.log(docs + '更新事务成功');
+      // console.log(docs + '更新事务成功');
       responseData.code = 0;
       responseData.message = '更新事务成功';
-      res.json(responseData);
+
+      // 事务更新后清空已接收对象
+      Info.update({_id: editId}, { $set: { receiver: []}}, function (err, docs) {
+        if (err) {
+          console.log(err);
+          responseData.message = '清空已接受消息用户列表失败';
+          res.json(responseData)
+          return false;
+        } else {
+          console.log('清空接收对象成功');
+          res.json(responseData);
+        }
+      })
     }
   })
 });
@@ -124,18 +150,6 @@ router.get('/infos/visit', function (req, res) {
           // console.log(usersArray)
         });
       }
-
-
-
-    // { _id: 597ed8b5c3353b4458b4b974,
-    //   username: 'aa',
-    //   password: 'aa',
-    //   __v: 0,
-    //   regAddr: '::ffff:127.0.0.1',
-    //   contact_n: '111',
-    //   contact_q: '111',
-    //   regTime: 2017-07-31T07:13:57.990Z,
-    //   authority: 'normalUser' } ]
       return User.find({authority: topic.receiveMember}).then(function (receiveMembers) {
         res.render('admin/user_visit_manage', {
           topic: topic,
@@ -170,10 +184,8 @@ router.post('/contents', function (req, res) {
 });
 
 router.get('/infos/manage', function (req, res) {
-  // console.log(req);
-  // console.log(req.userInfo);
   Info.find().then(function (results) {
-    console.log(results);
+    // console.log(results);
     res.render('admin/info_manage', {
       // infos: infos
       userInfo: req.userInfo,
@@ -219,7 +231,7 @@ router.post('/contents/view', function (req, res) {
 });
 
 router.get('/content/ask', function (req, res) {
-  console.log(req.userInfo._id)
+  // console.log(req.userInfo._id)
   var queryData = {};
   if (req.userInfo.authority === 'admin' ) {
     queryData = {};
@@ -229,7 +241,7 @@ router.get('/content/ask', function (req, res) {
   }
   Info.find(queryData).then(function (contents) {
     var k_arr = [];
-    console.log(contents)
+    // console.log(contents)
     for (var k in contents) {
       if (contents[k].receiver.indexOf(req.userInfo._id) !== -1) {
         // console.log(k + )

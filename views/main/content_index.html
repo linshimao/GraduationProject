@@ -1,11 +1,6 @@
 {% extends './layout.html' %}
 {% block main %}
   <div class="container"> <!-- 主体内容部分 -->
-    {% if userInfo.isAdmin %}
-    <div class="admin-tip text-center">
-      <p>尊敬的：{{ userInfo.username }}，您是本系统超级管理员,您发布的所有事务如下所示：</p>
-    </div>
-    {% endif %}
     <div class="row">
       <div class="col-md-10 article-wraper">
         {% for content in contents %}

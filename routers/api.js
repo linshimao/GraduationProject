@@ -78,6 +78,14 @@ router.post('/users', function (req, res, next) {
   })
 });
 
+
+// router.get('/', function (req, res) {
+//   if (!req.cookies.get('userInfo')) {
+//     res.redirect('/')
+//     return false
+//   }
+// })
+
 router.post('/users/login', function (req, res) {
   var username = req.body.username;
   // console.log(username);
@@ -123,6 +131,10 @@ router.post('/users/login', function (req, res) {
 
 // limit(limit).sort({_id: -1}).skip(5).
 router.get('/content', function (req, res) {
+  if (!req.cookies.get('userInfo')) {
+    res.redirect('/')
+    return false
+  }
   var page = Number(req.query.page || 1);
   var pages = 0;
   var limit = 5;

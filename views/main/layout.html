@@ -41,7 +41,14 @@
         <div class="btn-group">
           <i class="fa fa-user-circle-o nav-i dropdown-toggle" data-toggle="dropdown" aria-hidden="true"></i>
           <ul class="dropdown-menu">
-            <li><a href="#">你好，{{ userInfo.username }}</a></li>
+            <li><a href="javascript:;">你好，{{ userInfo.username }}</a></li>
+            {% if userInfo.authority === "admin" %}
+              <li><a href="javascript:;">你的角色：管理员</a></li>
+              {% elseif userInfo.authority === "normalUser"%}
+              <li><a href="javascript:;">你的角色：普通用户</a></li>
+              {% else %}
+              <li><a href="javascript:;">你的角色：高级用户</a></li>
+              {% endif %}
             <li role="separator" class="divider"></li>
             <li><a href="/api/member_center">个人中心</a></li>
             {% if (userInfo.authority === 'admin') %}

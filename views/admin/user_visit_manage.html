@@ -14,7 +14,11 @@
        {% set flag = true %}
       <tr>
         <td>{{ user.username }}</td>
-        <td>{{ user.authority }}</td>
+        {% if user.authority === 'normalUser' %}
+        <td>普通用户</td>
+        {% else %}
+        <td>高级用户</td>
+        {% endif %}
         {% for visitedUser in userArray %}
           {% if user.username == visitedUser.username %}
             <td class="visit-yes">√</td>

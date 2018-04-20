@@ -18,8 +18,13 @@ main article section {
 
 .pre-cont {
   padding-top: 30px;
-  padding-left: 155px;
 }
+
+@media (min-width: 768px) { 
+  .pre-cont {
+    /* padding-left: 155px; */
+  }
+ }
 
 .pre-cont .btn-sure {
   position: absolute;
@@ -29,7 +34,7 @@ main article section {
   font-size: 21px;
   color: #828290;
   border-bottom: 1px solid #345;
-  width: 700px;
+  width: 95%;
 }
 .pre-cont p:nth-of-type(2) {
   border-bottom: none;
@@ -109,3 +114,13 @@ main article section {
   padding-bottom: 50px;
   line-height: 40px;
 }
+
+/* 媒体查询 */
+@media (max-width: 768px) { 
+  .navbar {
+    left: 20px;
+  }
+  .dropdown-menu {
+    left: -160px;
+  }
+ }

@@ -26,6 +26,11 @@ router.get('/user', function (req, res) {
     var skip = (page - 1) * limit;
 
     User.find().sort({_id: -1}).limit(limit).skip(skip).then(function (users) {
+      users.forEach(function (item, index) {
+        if (item.authority === 'admin') {
+          users.splice(index, 1)
+        }
+      })
       res.render('admin/user_index', {
         userInfo: req.userInfo,
         users: users,
